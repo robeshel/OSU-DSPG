@@ -1,0 +1,5 @@
+Notes for Working on the Sim
+
+
+Getting Started:
+The best way to find necessary libraries is to google them rather than going through the library browser.
