@@ -135,5 +135,5 @@ title('Acceleration','fontsize',14);
 figure(5)
 plot(vel)
 title('Velocity','fontsize',14);
-
+ % this is a new model
 
