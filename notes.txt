@@ -3,3 +3,9 @@ Notes for Working on the Sim
 
 Getting Started:
 The best way to find necessary libraries is to google them rather than going through the library browser.
+
+Modeling Electric Fields doc:
+http://www.physics.usyd.edu.au/teach_res/mp/doc/cemVEA.pdf
+
+Electric Field of a Parrallel Plate Capaitory Model:
+https://www.mathworks.com/matlabcentral/fileexchange/42773-electric-field-of-a-parallel-plate-capacitor-using-2d-poisson-equation
