@@ -16,5 +16,10 @@ https://www.mathworks.com/matlabcentral/fileexchange/42773-electric-field-of-a-p
 Modeling Gravity:
 https://www.mathworks.com/help/physmod/sm/ug/gravity.html
 
+
 3D motion of a charged particle in a constant electric field
 http://www.physics.usyd.edu.au/teach_res/mp/doc/em_vBE.pdf
+
+
+Simulate charged particle
+https://www.mathworks.com/matlabcentral/answers/9120-simulation-of-charged-particle-in-matlab
