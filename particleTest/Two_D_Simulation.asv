@@ -47,11 +47,11 @@ mat_size = 51; % particle matrix size
 Position_mat = zeros(mat_size,mat_size);
 Time_mat = zeros(mat_size,mat_size);%initializing Particle Matrix
 % -------------------------------------------------------------------------%
-t1 = 5;
+t1 = 5; Thickness of 
 t2 = 8;
 g = 9;
-r_1 = 11;
-r_2 = 7;
+r_s = 16;
+r_a = 7;
 lp_s = 14;   % Length of plate in terms of number of grids 
 lp_a = 18;   % Length of plate in terms of number of grids  
 pp_s = 13; %Position of plate_1 on x axis
@@ -64,17 +64,17 @@ for z = 1:Ni    % Number of iterations
 % -------------------------------------------------------------------------%
             % The next lines are meant to force the matrix to hold the 
             % potential values for all iterations
-                V(pp_s:pp_s+t1, mpy + r_1:mpy+r_1+lp_s) = 1200;
-                V(pp_s:pp_s+t1, mpy - r_1 - lp_s:mpy - r_1) = 1200;
-                V(pp_a:pp_a+t2, mpy + r_2:mpy+r_2+lp_a) = -500;
-                V(pp_a:pp_a+t2, mpy-r_2-lp_a:mpy - r_2) = -500;
+                V(1:mpy - r_s, pp_s:pp_s+t1) = 1200;
+                V(mpy + r_s:51, pp_s:pp_s+t1) = 1200;
+                V(1:mpy - r_a, pp_a:pp_a+t2) = -500;
+                V(mpy + r_a:51,  pp_a:pp_a+t2) = -500;
 % -------------------------------------------------------------------------%
                 V(i,j)=0.25*(V(i+1,j)+V(i-1,j)+V(i,j+1)+V(i,j-1));
         end
     end      
 end
 % Take transpose for proper x-y orientation
-V = V';
+
 A = gradient(V);
 [Ex,Ey]=gradient(V);
 Ex = -Ex;
@@ -113,75 +113,49 @@ h3=gca;
 set(h3,'fontsize',14);
 fh3 = figure(2); 
 set(fh3, 'color', 'white')
-acc = zeros(1,Ny); 
-vel =  zeros(1,Ny);
+acc_x = zeros(1,Ni); 
+acc_y = zeros(1,Ni);
+vel_x =  zeros(1,Ni);
+vel_y =  zeros(1,Ni);
 time = zeros(1,Ny);
-position = zeros(100,100);
+Pos_x = zeros(1, Ni);
+Pos_y = zeros(1, Ni);
 i = 26;
 j = 2;
+min_p = 0.01; %mm
+max_p = 0.1; %mm
+
 
 for z = 2:Ni    % Number of iterations
-    while i<40
-        while j<40    % Number of iterations
-    Potential = [A(i+1,j), A(i+1,j+1), A(i,j+1), A(i-1,j+1), A(i-1,j), A(i-1,j-1), A(i,j-1), A(i+1,j-1)];
-    Index = find(max(abs(Potential)));
-    if Index == 1
-       E_val = V(i+1,j);
-    elseif Index == 2
-       E_val = V(i+1,j+1);
-    elseif Index == 3
-       E_val = V(i,j+1);
-    elseif Index == 4
-       E_val = V(i-1,j+1);
-    elseif Index == 5
-       E_val = V(i-1,j);
-    elseif Index == 6
-       E_val = V(i-1,j-1);
-    elseif Index == 7
-       E_val = V(i,j-1);
-    elseif Index == 8
-       E_val = V(i+1,j-1);
+    while i<51
+        while j<51    % Number of iterations
+    %Potential = [A(i+1,j), A(i+1,j+1), A(i,j+1), A(i-1,j+1), A(i-1,j), A(i-1,j-1), A(i,j-1), A(i+1,j-1)];
+    %Potential = [A(i+1,j), A(i,j+1), A(i-1,j), A(i,j-1)]
+    Fx = Ex(i,j) * qi * e_charge * (-1);
+    Fy = Ey(i,j) * qi * e_charge * (-1);
+    acc_x(1,z) = (Fx./m_Xe) * 10e-9; %mm/ms^2
+    acc_y(1,z) = (Fy./m_Xe) * 10e-9; %mm/ms^2
+    del_t = 0.01;
+    for k=1:Ni
+        Pos_x(1, z) = Pos_x(1,z-1) + (vel_x(1,z) + (acc_x(1,z)*(del_t)))*del_t;
+        Pos_y(1, z) = Pos_y(1,z-1) + (vel_y(1,z) + (acc_y(1,z)*(del_t)))*del_t;
+        if abs(Pos_x(1,z) - Pos_x(1,z-1)) < min_p; or abs(Pos_y(1,z) - Pos_y(1,z-1)) < min_p
+            del_t = 2 * del_t;
+        elseif abs(Pos_x(1,z) - Pos_x(1,z-1)) > max_p; or abs(Pos_y(1,z) - Pos_y(1,z-1)) > max_p
+            del_t = del_t/2;
+        end
     end
-   F =  qi * e_charge * E_val * (-1);
-   acc(1,z) = (F./m_Xe) * 10e-16; %0.1 mm/ns^2
-   vel(1, z) = vel(1,z-1)^2 + 2 * acc(1,z); % 0.1 m/ns;
-   time(1, z) = vel(1,z-1) + (0.5)*(acc(1,z));%ns;
-   
-   position(i,j) = 1;
-   
-     if Index == 1
-       i = i+1;
-    elseif Index == 2
-       i = i+1;
-       j = j+1;
-    elseif Index == 3
-       j = j+1;
-    elseif Index == 4
-        i = i-1;
-        j = j+1;
-    elseif Index == 5
-       i = i-1;
-    elseif Index == 6
-       i = i-1;
-       j = j-1;
-    elseif Index == 7
-       j = j-1;
-    elseif Index == 8
-       i = i+1;
-       j = j-1;
-     end
-   
         end
     end
 end
 
 figure(4)
 plot(acc)
-% title('Acceleration','fontsize',14);
+%title('Acceleration','fontsize',14);
 % hold on 
 figure(5)
 plot(vel)
-% title('Velocity','fontsize',14, 'r');
+%title('Velocity','fontsize',14, 'r');
 figure(6)
 plot(state_mat)
 %title('Position','fontsize', 14, 'k--');
