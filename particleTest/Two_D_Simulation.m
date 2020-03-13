@@ -1,6 +1,7 @@
 clc
 close all;
 clear all;
+tic
 %-------------------------------------------------------------------------%
 %                         INITIALIZATION    
 %-------------------------------------------------------------------------%
@@ -125,6 +126,9 @@ min_p = 0.01; %mm
 max_p = 0.1; %mm
 
 
+timer = toc
+disp(timer)
+
 for z = 2:Ni    % Number of iterations
     while i<51
         while j<51    % Number of iterations
@@ -160,4 +164,3 @@ plot(state_mat)
 %title('Position','fontsize', 14, 'k--');
 hold off
  % this is a new model
-
