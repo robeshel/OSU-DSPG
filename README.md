@@ -2,13 +2,13 @@
 
 This repository contains:
 -----------------------------------------------------------------------------------------------------------------------------------
-**particleTest**
+**particleTest**  
 Matlab program to model particle movement in the thruster.
 
 
-**system**
+**system**  
 Simulink simulation to model the system in its entirety.
 
 
-**notes.txt**
+**notes.txt**  
 Relevant notes and sources.
