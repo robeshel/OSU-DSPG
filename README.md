@@ -1,5 +1,6 @@
-# DSPG-ThrusterSimulation
+# OSU-DSPG
 
 **Oregon State University Deep Space Propulsion Group**
 
-High Fidelity Simulation repository
+This repository contains:
+
