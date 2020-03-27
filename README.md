@@ -12,3 +12,7 @@ Simulink simulation to model the system in its entirety.
 
 **notes.txt**  
 Relevant notes and sources.
+
+
+**New folder**  
+Folder containing an example file.
