@@ -84,3 +84,8 @@ T = gamma*mdot*vi
 T = sqrt(2*M/e)*Ib*sqrt(Vb) 
 Tmax = 4/9*(epsilon*gamma*Ts/e)*sqrt(2*e/M)*(Vt^(3/2)/le^2)*M*sqrt(2*e*Vb/M)
 T = 1.65*gamma*Ib*sqrt(Vb) %(mN)
+
+
+%%Magnetron
+%Heat of the anode of the magnetron. Raw temperature data.
+T1= 1679.31+(-22252.17-1659.31)./(1+(x./1.881098e-39).^0.03126938);
