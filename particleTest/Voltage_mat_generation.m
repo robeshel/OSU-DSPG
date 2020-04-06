@@ -11,26 +11,26 @@ tic
 % Ny = Number of grid points in Y-Direction
 %-------------------------------------------------------------------------%
 % Enter the dimensions
-qi= -1;
+qi= 1;
 e_charge = 1.602e-19;
 eps = 8.854*(10^-12);
 size = 0.1; % this variable is needed for interpolation, it is the grid size (e.g. 0.1 mm)
 m_Xe = 2.1801714e-25; %kg
-Nx = 501;     % Number of X-grids
-Ny = 501;     % Number of Y-grids
+Nx = 1001;     % Number of X-grids
+Ny = 1001;     % Number of Y-grids
 mpx = ceil(Nx/2); % Mid-point of x
 mpy = ceil(Ny/2); % Mid point of y
-Ni = 250;  % Number of iterations for the position sim
+Ni = 500;  % Number of iterations
 V = zeros(Nx,Ny);   % Potential (Voltage) matrix
 
 % -------------------------------------------------------------------------%
 % Initializing Particle Properties
 % -------------------------------------------------------------------------%
-res = 5;
+res = 10;
 t1 = 10*res; %Thickness of screen Grid
 t2 = 16*res; %Thickness of Acc Grid
 g = 18*res; % Gap Between Screen And Acc Grid
-r_s = 32*res; % Radius of Screen Grid
+r_s = 25*res; % Radius of Screen Grid
 r_a = 14*res; % Radius of Acc Grid
 lp_s = 28*res;   % Length of plate in terms of number of grids
 lp_a = 36*res;   % Length of plate in terms of number of grids  
@@ -76,5 +76,6 @@ for z = 1:Ni    % Number of iterations
     V_new = V(mpx,mpy);
     eff(1,z) = (V_new - V_old);
 end
+toc
 
-writematrix(V, 'Voltage_mat.csv') 
+writematrix(V, 'Voltage_mat10_5_2p8.csv') 
