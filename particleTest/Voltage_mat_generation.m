@@ -16,17 +16,17 @@ e_charge = 1.602e-19;
 eps = 8.854*(10^-12);
 size = 0.1; % this variable is needed for interpolation, it is the grid size (e.g. 0.1 mm)
 m_Xe = 2.1801714e-25; %kg
-Nx = 1001;     % Number of X-grids
-Ny = 1001;     % Number of Y-grids
+Nx = 501;     % Number of X-grids
+Ny = 501;     % Number of Y-grids
 mpx = ceil(Nx/2); % Mid-point of x
 mpy = ceil(Ny/2); % Mid point of y
-Ni = 500;  % Number of iterations
+Ni = 1000;  % Number of iterations
 V = zeros(Nx,Ny);   % Potential (Voltage) matrix
 
 % -------------------------------------------------------------------------%
 % Initializing Particle Properties
 % -------------------------------------------------------------------------%
-res = 10;
+res = 5;
 t1 = 10*res; %Thickness of screen Grid
 t2 = 16*res; %Thickness of Acc Grid
 g = 18*res; % Gap Between Screen And Acc Grid
@@ -44,7 +44,7 @@ for z = 1:Ni    % Number of iterations
     for i=2:Nx-1
         for j=2:Ny-1
 % -------------------------------------------------------------------------%
-                V(1:mpy - r_s, pp_s:pp_s+t1) = 1500;
+                 V(1:mpy - r_s, pp_s:pp_s+t1) = 1500;
                 V(mpy + r_s:Ny, pp_s:pp_s+t1) = 1500;
                 V(1:mpy - r_a, pp_a:pp_a+t2) = -200;
                 V(mpy + r_a:Ny,  pp_a:pp_a+t2) = -200;
@@ -78,4 +78,4 @@ for z = 1:Ni    % Number of iterations
 end
 toc
 
-writematrix(V, 'Voltage_mat10_5_2p8.csv') 
+writematrix(V, 'Voltage_mat510_5_2p8.csv') 
